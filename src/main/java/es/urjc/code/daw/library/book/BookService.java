@@ -13,12 +13,18 @@ import es.urjc.code.daw.library.notification.NotificationService;
 @Service
 public class BookService {
 
+	private static int LIKE_BREAK_LENGTH = 10;
+
 	private BookRepository repository;
 	private NotificationService notificationService;
 
-	public BookService(BookRepository repository, NotificationService notificationService){
+	private LineBreaker lineBreaker;
+
+	public BookService(BookRepository repository, NotificationService notificationService,
+					   LineBreaker lineBreaker){
 		this.repository = repository;
 		this.notificationService = notificationService;
+		this.lineBreaker = lineBreaker;
 	}
 
 	public Optional<Book> findOne(long id) {
@@ -34,6 +40,11 @@ public class BookService {
 	}
 
 	public Book save(Book book) {
+		// line breaker
+		assert LIKE_BREAK_LENGTH >= 2;
+		String bookDescription = this.lineBreaker.breakLine(book.getDescription(), LIKE_BREAK_LENGTH);
+		book.setDescription(bookDescription);
+
 		Book newBook = repository.save(book);
 		notificationService.notify("Book Event: book with title="+newBook.getTitle()+" was created");
 		return newBook;
