@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import es.urjc.code.daw.library.book.LineBreaker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,14 @@ public class BookServiceUnitaryTest {
     private NotificationService notificationService;
     private BookRepository repository;
 
+    private LineBreaker lineBreaker;
+
     @BeforeEach
 	public void setup() {
         
         repository = mock(BookRepository.class);
         notificationService = mock(NotificationService.class);
-        bookService = new BookService(repository, notificationService);
+        bookService = new BookService(repository, notificationService, lineBreaker);
 			
     }
 
