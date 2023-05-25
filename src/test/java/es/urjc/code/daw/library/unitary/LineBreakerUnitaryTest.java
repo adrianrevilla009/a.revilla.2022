@@ -1,7 +1,5 @@
 package es.urjc.code.daw.library.unitary;
 
-package es.urjc.code.daw.library.unitary;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
